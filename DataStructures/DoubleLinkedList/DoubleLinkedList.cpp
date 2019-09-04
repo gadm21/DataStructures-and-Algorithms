@@ -7,7 +7,7 @@ template<class T>
 class Node{
     public:
         T Data;
-        Node *Prev, *Next;
+        Node *Prev, *Next; //SingleLinkedList Doens't have Node<T> *prev pointer, DoubleLinkedList has
         Node(T data, Node* prev= nullptr, Node* next= nullptr){
             Data= data;
             Prev= prev;
@@ -52,7 +52,14 @@ DLList<T>::DLList(){ this->head= nullptr;}
 
 template<class T>
 DLList<T>::~DLList(){
-    
+    if(!head) return;
+
+    Node<T>* temp= head;
+    while(temp->Next){
+        temp= temp->Next;
+        delete temp->Prev;
+    }
+    delete temp;
 }
 
 template <class T>
@@ -173,3 +180,5 @@ Node<T>* DLList<T>::operator[](int index){
     for(Node<T>* temp= head; temp; i++, temp= temp->Next) if(i== index) return temp;
     return nullptr;
 }
+
+
