@@ -32,8 +32,3 @@ void merge_sort(int *arr, int first, int last){
         merge(arr, first, middle, last);
     }
 }
-
-void print(int* arr, int size){
-    for(int i=0; i<size; i++) cout<<arr[i]<<" ";
-    cout<<endl;
-}
