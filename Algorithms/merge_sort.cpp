@@ -37,9 +37,3 @@ void print(int* arr, int size){
     for(int i=0; i<size; i++) cout<<arr[i]<<" ";
     cout<<endl;
 }
-
-int main(){
-    int arr[5]= {43, 56, 2,  32, 1};
-    merge_sort(arr, 0, 4);
-    print(arr, 5);
-}
