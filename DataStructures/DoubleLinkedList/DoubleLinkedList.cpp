@@ -15,7 +15,7 @@ class Node{
         }
 
         void print(){
-            std::cout<<Data<<std::endl;
+            std::cout<<Data<<" ";
         }
 };
 
@@ -94,6 +94,7 @@ void DLList<T>::push_front(T data){
 template <class T>
 void DLList<T>::print(){
     for(Node<T>* temp= head; temp; temp= temp->Next) temp->print();
+    cout<<endl;
 }
 
 template<class T>
