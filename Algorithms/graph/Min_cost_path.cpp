@@ -3,6 +3,23 @@ using namespace std;
 
 #define ui unsigned int
 
+vector< vector<int> > matrix;
+
+ui min_cost_path1(int m, int n){
+    if(!m && !n) return matrix[0][0];
+    else if(m<0 || n<0) return INT_MAX;
+    
+    ui cost= matrix[m][n];
+    return min(
+        min(
+            cost+ min_cost_path1(m- 1, n- 1),
+            cost+ min_cost_path1(m- 1, n)
+        ),
+        cost+ min_cost_path1(m, n-1)
+    );
+}
+
+
 //...........................................................
 //...........................................................
 
@@ -13,7 +30,6 @@ i.e., from a given cell (i, j), cells (i+1, j), (i, j+1) and (i+1, j+1) can be t
 */
 
 ui REF_COST= 0;
-vector< vector<int> > matrix;
 
 ui min_cost(int i, int j, int m, int n, ui my_cost= 0){
     
@@ -33,7 +49,7 @@ ui min_cost(int i, int j, int m, int n, ui my_cost= 0){
     
 }
 
-ui min_cost_init(int m, int n){
+ui min_cost_path2(int m, int n){
     
     ui i=0, j=0;
     do{REF_COST+= matrix[i++][j]; cout<<"ref_cost:"<<REF_COST<<endl;}while(i< m);
@@ -45,4 +61,3 @@ ui min_cost_init(int m, int n){
 
 //...........................................................
 //...........................................................
-
