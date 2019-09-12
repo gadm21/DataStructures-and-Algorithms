@@ -1,3 +1,4 @@
+//problem URL:: https://practice.geeksforgeeks.org/problems/job-sequencing-problem/0
 
 #include <bits/stdc++.h>
 using namespace std;
