@@ -9,7 +9,6 @@ class HashTable{
         vector<vector<pair<string, T> > > v;
         ui hash(string key);
     public:
-        int x=3;
         HashTable(int maxsize=100);
 
         void insert(string key, T value);
