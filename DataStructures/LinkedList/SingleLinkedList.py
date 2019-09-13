@@ -62,12 +62,12 @@ class SingleLinkedList():
             current_index= first+ (end- first)/2
             current_node= self[current_index]
             if current_node.data== data:
-                return True
+                return current_index
             elif current_node.data< data:
-                first= current_index
+                first= current_index+1
             else: end= current_index
         
-        return False
+        return None
 
 
 
@@ -134,5 +134,3 @@ class SingleLinkedList():
         
         return temp
     
-
-
