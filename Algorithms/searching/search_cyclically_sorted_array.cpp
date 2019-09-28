@@ -1,3 +1,8 @@
+/** 
+probelm can be found in "Adnan Aziz, Tsung-Hsien Lee, Amit Prakash-Elements of Programming Interviews in Java.
+The Insiders’ Guide-CreateSpace Independent Publishing Platform (2016)" book  - chapter 12 - problem 3
+ */
+
 #include <bits/stdc++.h>
 using namespace std;
 
