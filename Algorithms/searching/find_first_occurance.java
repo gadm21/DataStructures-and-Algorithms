@@ -1,3 +1,8 @@
+/** 
+probelm can be found in "Adnan Aziz, Tsung-Hsien Lee, Amit Prakash-Elements of Programming Interviews in Java.
+The Insiders’ Guide-CreateSpace Independent Publishing Platform (2016)" book  - chapter 12 - problem 2
+ */
+
 public static int search_first_occurance(int[] array, int k){
     int first= 0;
     int last= array.size()- 1;
