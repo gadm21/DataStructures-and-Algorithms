@@ -32,7 +32,7 @@ int compute_int_sqrt_2(int k){
     while(first<=last){
 
         int mid= first+ (last- first)/2;
-        int sq= pow(mid, 2);
+        int sq= mid*mid;
         if(sq<= k) first= mid+ 1;
         else if(sq> k) last= mid-1;
     }
