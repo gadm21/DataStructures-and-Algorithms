@@ -22,7 +22,7 @@ public:
 template <class T>
 Queue<T>::Queue(int size)
 {
-    arr = (int *)calloc(size, sizeof(T));
+    arr = (T *)calloc(size, sizeof(T));
     max_size = size;
 }
 
@@ -61,9 +61,9 @@ template <class T>
 void Queue<T>::resize()
 {
     max_size *= 2;
-    int *new_arr = (int *)calloc(max_size, sizeof(T));
+    int *new_arr = (T *)calloc(max_size, sizeof(T));
 
-    for (int i = start, counter = 0; counter <= current_size; counter++, i++)
+    for (int i = start, counter = 0; counter < current_size; counter++, i++)
         new_arr[counter] = arr[i];
     
 
