@@ -106,3 +106,26 @@ Node<T>* LinearHashTable<T>::operator[](string key){
 
 }
 
+/*
+ this is a bug. happening when an element A is inserted in a location where another element B resides
+if B is deleted after A was inserted and displaced to the next location, A becomes unreached
+*/ 
+
+int main(){
+    LinearHashTable<int> lht(10);
+    
+    //lht.insert("happy", 10);
+    //lht.insert("sad", 229);
+    lht.insert("gad", 4);
+    lht.insert("ahmed", 439);
+    lht.insert("mohamed", 9);
+
+    lht.delete_element("ahmed");
+
+    Node<int> *n= lht["mohamed"];
+
+    if(n) cout<<"found:"<< n->value<<" at:"<<n->key<<endl;
+    else cout<<"found nothing"<<endl;
+
+    lht.print();
+}

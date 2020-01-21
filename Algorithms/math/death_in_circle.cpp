@@ -1,5 +1,10 @@
 //URL:: https://practice.geeksforgeeks.org/problems/game-of-death-in-a-circle/0
 
+
+
+// not completed
+
+
 #include <bits/stdc++.h>
 using namespace std;
 
