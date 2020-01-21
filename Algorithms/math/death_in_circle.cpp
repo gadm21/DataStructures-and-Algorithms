@@ -2,7 +2,7 @@
 
 
 
-// not completed
+// uncompleted
 
 
 #include <bits/stdc++.h>
