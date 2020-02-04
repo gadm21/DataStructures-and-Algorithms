@@ -10,6 +10,7 @@ public:
     MinHeap();
     MinHeap(int capacity_);             //initialize arr with this capacity_
     ~MinHeap();
+    int get_capacity();
     void MinHeapify(int index_);        //heapify starting from index_
     int get_parent(int index_);
     int get_left(int index_);
