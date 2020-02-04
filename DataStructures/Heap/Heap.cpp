@@ -1,3 +1,14 @@
+
+
+/**
+ * TODO: extend the array when you reach full capacity
+ * TODO: make the print() function visualize the heap good (hint: use log2(current_size+1))
+ * 
+ * */
+
+
+
+
 #include "Heap.h"
 using namespace std;
 
@@ -8,19 +19,30 @@ void swap(int &a, int &b)
     b = temp;
 }
 
-MinHeap::MinHeap() : MinHeap(10) {}
-MinHeap::MinHeap(int capacity_)
+template <class D, bool H>
+Heap<D, H>::Heap() : Heap(10) {}
+
+template <class D, bool H>
+Heap<D, H>::Heap(int capacity_)
 {
     capacity = capacity_;
     arr = (int *)malloc(capacity * sizeof(int));
     current_size = 0;
+    heap_type = H;
 }
 
-MinHeap::~MinHeap() { delete arr; }
+template <class D, bool H>
+Heap<D, H>::~Heap()
+{
+    delete arr;
+    cout << "heap type:" << heap_type << endl;
+}
 
-int MinHeap::get_capacity() { return capacity; }
+template <class D, bool H>
+int Heap<D, H>::get_capacity() { return capacity; }
 
-void MinHeap::insert(int key_)
+template <class D, bool H>
+void Heap<D, H>::insert(int key_)
 {
     if (current_size == capacity)
     {
@@ -31,51 +53,97 @@ void MinHeap::insert(int key_)
     int i = current_size;
     arr[current_size++] = key_;
 
-    //heapify
-    while (i != 0 && arr[get_parent(i)] > arr[i])
-    {
-        swap(arr[i], arr[get_parent(i)]);
-        i = get_parent(i);
-    }
+    HeapifyUp(i); //i here equals current_size-1
 }
-bool MinHeap::remove(int index)
+
+template <class D, bool H>
+bool Heap<D, H>::remove(int index)
 {
     if (index >= current_size)
         return false;
     current_size--;
     arr[index] = INT_MAX;
-    MinHeapify(index);
+    HeapifyDown(index);
     return true;
 }
-void MinHeap::MinHeapify(int index)
+
+template <class D, bool H>
+void Heap<D, H>::HeapifyDown(int index)
 {
     if (index < current_size)
     {
         int left_index = get_left(index);
         int right_index = get_right(index);
-        int smallest_index = index;
-
-        if (left_index < current_size && arr[left_index] < arr[index])
-            smallest_index = left_index;
-        if (right_index < current_size && arr[right_index] < arr[smallest_index])
-            smallest_index = right_index;
-
-        if (smallest_index != index)
+        if (heap_type == MAX_HEAP)
         {
-            swap(arr[smallest_index], arr[index]);
-            MinHeapify(smallest_index);
+            int biggest_index = index;
+
+            if (left_index < current_size && arr[left_index] > arr[index])
+                biggest_index = left_index;
+            if (right_index < current_size && arr[right_index] > arr[biggest_index])
+                biggest_index = right_index;
+
+            if (biggest_index != index)
+            {
+                swap(arr[biggest_index], arr[index]);
+                HeapifyDown(biggest_index);
+            }
+        }
+        else
+        {
+
+            int smallest_index = index;
+
+            if (left_index < current_size && arr[left_index] < arr[index])
+                smallest_index = left_index;
+            if (right_index < current_size && arr[right_index] < arr[smallest_index])
+                smallest_index = right_index;
+
+            if (smallest_index != index)
+            {
+                swap(arr[smallest_index], arr[index]);
+                HeapifyDown(smallest_index);
+            }
         }
     }
 }
 
-bool MinHeap::getMin(int &key)
+template <class D, bool H>
+void Heap<D, H>::HeapifyUp(int index)
+{
+    if (index > 0)
+    {
+        int parent= get_parent(index);
+        if (heap_type == MAX_HEAP)
+        {
+            if(arr[parent] < arr[index]){
+                swap(arr[parent], arr[index]);
+                HeapifyUp(parent);
+            }
+
+        }
+        else
+        {
+            if(arr[parent] > arr[index]){
+                swap(arr[parent], arr[index]);
+                HeapifyUp(parent);
+            }
+        }
+
+    }
+}
+
+template <class D, bool H>
+bool Heap<D, H>::getMin(int &key)
 {
     if (!current_size)
         return false;
     key = arr[0];
     return true;
 }
-bool MinHeap::extractMin(int &key)
+
+template <class D, bool H>
+bool Heap<D, H>::extractMin(int &key)
 {
     if (!current_size)
         return false;
@@ -84,32 +152,29 @@ bool MinHeap::extractMin(int &key)
     if (current_size)
     {
         arr[0] = arr[current_size];
-        MinHeapify(0);
+        HeapifyDown(0);
     }
     return true;
 }
-int MinHeap::get_parent(int index_) { return (index_ - 1) / 2; }
-int MinHeap::get_left(int index_) { return (index_ * 2) + 1; }
-int MinHeap::get_right(int index_) { return (index_ * 2) + 2; }
 
-void MinHeap::print()
+template <class D, bool H>
+int Heap<D, H>::get_parent(int index_) { return (index_ - 1) / 2; }
+template <class D, bool H>
+int Heap<D, H>::get_left(int index_) { return (index_ * 2) + 1; }
+template <class D, bool H>
+int Heap<D, H>::get_right(int index_) { return (index_ * 2) + 2; }
+
+template <class D, bool H>
+void Heap<D, H>::print()
 {
+    cout<<"...................................................."<<endl;
+    cout<<"...................................................."<<endl;
+
+    cout<<"...................................................."<<endl;
+    cout<<"...................................................."<<endl;
+    cout<<"...................................................."<<endl;
+
     for (int i = 0; i < current_size; i++)
         cout << arr[i] << " ";
     cout << endl;
-}
-
-int main()
-{
-    MinHeap m;
-    int kk = 0;
-
-    m.insert(34);
-    m.insert(67);
-    m.insert(69);
-    m.insert(24);
-    cout << "capacity:" << m.get_capacity() << endl;
-    m.print();
-    m.extractMin(kk);
-    m.print();
 }

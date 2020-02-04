@@ -1,17 +1,23 @@
 #include <bits/stdc++.h>
 
-class MinHeap{
+#define MAX_HEAP true
+#define MIN_HEAP false
+
+template <class D, bool H>
+class Heap{
 private:
     int * arr;
     int current_size;
     int capacity;
+    bool heap_type;
 
 public:
-    MinHeap();
-    MinHeap(int capacity_);             //initialize arr with this capacity_
-    ~MinHeap();
+    Heap();
+    Heap(int capacity_);             //initialize arr with this capacity_
+    ~Heap();
     int get_capacity();
-    void MinHeapify(int index_);        //heapify starting from index_
+    void HeapifyDown(int index_);        //heapify starting from index_
+    void HeapifyUp(int index_);
     int get_parent(int index_);
     int get_left(int index_);
     int get_right(int index_);
