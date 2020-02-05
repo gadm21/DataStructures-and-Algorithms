@@ -10,6 +10,7 @@ private:
     int current_size;
     int capacity;
     bool heap_type;
+    void extend_heap();
 
 public:
     Heap();

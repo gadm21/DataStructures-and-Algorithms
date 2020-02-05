@@ -1,13 +1,14 @@
 
 
 /**
- * TODO: extend the array when you reach full capacity
- * TODO: make the print() function visualize the heap good (hint: use log2(current_size+1))
+ * DONE: extend the array when you reach full capacity
+ * DONE: make the print() function visualize the heap good (hint: use log2(current_size+1))
+ * 
+ * TODO: make print() even better
+ * TODO: fix bug in remove() (hint: try remove() then print())
+ * 
  * 
  * */
-
-
-
 
 #include "Heap.h"
 using namespace std;
@@ -32,10 +33,24 @@ Heap<D, H>::Heap(int capacity_)
 }
 
 template <class D, bool H>
+void Heap<D, H>::extend_heap()
+{
+    capacity *= 2;
+    void *added = realloc(arr, capacity * sizeof(int));
+
+    if (added == NULL)
+    {
+        cout<<"added is NULL"<<endl;
+        int *temp_arr = (int *)malloc(capacity * sizeof(int));
+        temp_arr = copy(arr, arr+current_size, temp_arr);
+        arr = temp_arr;
+    }
+}
+
+template <class D, bool H>
 Heap<D, H>::~Heap()
 {
     delete arr;
-    cout << "heap type:" << heap_type << endl;
 }
 
 template <class D, bool H>
@@ -46,14 +61,16 @@ void Heap<D, H>::insert(int key_)
 {
     if (current_size == capacity)
     {
-        cout << "overflow, can't insert another element" << endl;
-        return;
+        extend_heap();
+        insert(key_);
     }
+    else
+    {
+        int i = current_size;
+        arr[current_size++] = key_;
 
-    int i = current_size;
-    arr[current_size++] = key_;
-
-    HeapifyUp(i); //i here equals current_size-1
+        HeapifyUp(i); //i here equals current_size-1
+    }
 }
 
 template <class D, bool H>
@@ -113,23 +130,23 @@ void Heap<D, H>::HeapifyUp(int index)
 {
     if (index > 0)
     {
-        int parent= get_parent(index);
+        int parent = get_parent(index);
         if (heap_type == MAX_HEAP)
         {
-            if(arr[parent] < arr[index]){
+            if (arr[parent] < arr[index])
+            {
                 swap(arr[parent], arr[index]);
                 HeapifyUp(parent);
             }
-
         }
         else
         {
-            if(arr[parent] > arr[index]){
+            if (arr[parent] > arr[index])
+            {
                 swap(arr[parent], arr[index]);
                 HeapifyUp(parent);
             }
         }
-
     }
 }
 
@@ -167,14 +184,18 @@ int Heap<D, H>::get_right(int index_) { return (index_ * 2) + 2; }
 template <class D, bool H>
 void Heap<D, H>::print()
 {
-    cout<<"...................................................."<<endl;
-    cout<<"...................................................."<<endl;
+    
+    cout << "...................................................." << endl;
 
-    cout<<"...................................................."<<endl;
-    cout<<"...................................................."<<endl;
-    cout<<"...................................................."<<endl;
+    int current_line= 0;
+    for(int i=0; i<current_size; i++){
+        if((int) log2(i+1) != current_line){
+            cout<<endl;
+            current_line++;
+        }
+        cout<<arr[i]<<"  ";
+    }
+    cout<<endl;
+    cout << "____________________________________________________" << endl;
 
-    for (int i = 0; i < current_size; i++)
-        cout << arr[i] << " ";
-    cout << endl;
 }
