@@ -31,7 +31,7 @@ void dijkstra(vector< vector<int> > graph, int source, int n){
             vector<int> current_vertex= graph[i];
             for (int j=0; j<n; j++){
                 //if (j==source || j==i) continue;
-                if (answer[i] + graph[i][j] < answer[j]){
+                if (graph[i][j] && answer[i] + graph[i][j] < answer[j]){
                     answer[j]= answer[i]+ graph[i][j];
                     visited[j]= false;
                 }
