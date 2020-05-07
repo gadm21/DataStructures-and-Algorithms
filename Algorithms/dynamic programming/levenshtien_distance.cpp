@@ -14,16 +14,16 @@ void print_matrix(vector< vector<int> > dp){
     }
 }
 
-int levenshtien_distance_dp(string a, int a_index, string b, int b_index, vector<vector< int> > & dp){
+int levenshtien_distance_recursive(string a, int a_index, string b, int b_index, vector<vector< int> > & dp){
     if (a_index < 0) return b_index +1;
     if (b_index < 0) return a_index +1;
 
     if(dp[a_index][b_index] == -1){
-        if(a[a_index] == b[b_index]) dp[a_index][b_index]= levenshtien_distance_dp(a, a_index-1, b, b_index-1, dp);
+        if(a[a_index] == b[b_index]) dp[a_index][b_index]= levenshtien_distance_recursive(a, a_index-1, b, b_index-1, dp);
         else{
-            int substitute_last= levenshtien_distance_dp(a, a_index-1, b, b_index-1, dp);
-            int add_last= levenshtien_distance_dp(a, a_index, b, b_index-1, dp);
-            int delete_last= levenshtien_distance_dp(a, a_index-1, b, b_index-1, dp);
+            int substitute_last= levenshtien_distance_recursive(a, a_index-1, b, b_index-1, dp);
+            int add_last= levenshtien_distance_recursive(a, a_index, b, b_index-1, dp);
+            int delete_last= levenshtien_distance_recursive(a, a_index-1, b, b_index-1, dp);
             dp[a_index][b_index]= 1 + min(substitute_last, min(add_last, delete_last));
         }
     }
@@ -33,7 +33,7 @@ int levenshtien_distance_dp(string a, int a_index, string b, int b_index, vector
 int levenshtien_distance(string a, string b){
     vector< vector< int> > dp(a.length(), vector<int> (b.length(), -1));
 
-    return levenshtien_distance_dp(a, a.length()-1, b, b.length()-1, dp);
+    return levenshtien_distance_recursive(a, a.length()-1, b, b.length()-1, dp);
 
     
 }
