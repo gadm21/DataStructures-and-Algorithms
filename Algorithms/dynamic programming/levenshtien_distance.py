@@ -24,8 +24,6 @@ def levenshtien_distance_dp (string1, string2):
     print(dp) 
     print("distance between {} and {} is {} \n".format(string1, string2, dp[len(string1)][len(string2)]))
 
-levenshtien_distance_dp(strings_1[0], strings_2[0])
-
 
 
 for s1, s2 in zip(strings_1, strings_2):
