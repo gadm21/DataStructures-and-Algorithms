@@ -35,15 +35,12 @@ public:
         int l = 0, r = n;
         
         while(l<r){
-            int m = (int) l + (r-1)/2 ; 
-            //cout<<"index:"<<m<<endl;
+            int m = (int) l + (r-l)/2 ; 
 
-            bool bad = isBadVersion(m);
-            //cout<<"isBad:"<<bad<<endl; 
+            bool bad = isBadVersion(m); 
 
-            int f = found(m,n,bad);
-            //cout<<"found:"<<f<<endl;
-            if (f != -1) return m;
+            int f = found(m,n,bad);;
+            if (f != -1) return f;
             
             if (bad) r = m;
             else l = m;
@@ -52,14 +49,14 @@ public:
     }
 };
 
-
+void show(vector<bool> &arr){}
 
 
 void test(){
     Solution s;
     for (int i=0; i<10; i++){
         int t = rand() % 100 ;
-        int n = t + rand() % 500 ;
+        int n = 100 + rand() % 500 ;
         make_versions(t, n);
         cout<<"true target:"<<t<<endl;
         int predicted_t = s.firstBadVersion(100);
