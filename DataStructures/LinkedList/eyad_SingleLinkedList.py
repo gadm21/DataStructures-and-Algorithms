@@ -1,7 +1,12 @@
+
+
+
 class node:
     def __init__(self,date=None):
         self.date=date
         self.next=None
+
+
 class SingleLinkedList:
     def __init__(self):
         self.head= node()   
@@ -180,6 +185,5 @@ class SingleLinkedList:
 #add printability feature 
 #add + feature aginst other lists 
      
-
 
 
