@@ -1,6 +1,6 @@
 class node:
-    def __init__(self,date=None):
-        self.date=date
+    def __init__(self,data=None):
+        self.data=data
         self.next=None
 class SingleLinkedList:
     def __init__(self):
@@ -8,20 +8,24 @@ class SingleLinkedList:
 
     def insert(self, data, position = None): 
         newnode=node(data)
-        if position < 0 :
-            return False
+        
 
-        elif self.listlen() ==0:
+        if self.listlen() ==0:
+            if position is not None :
+                if position ==0:
+                    self.head.next=newnode
+                    return True
+                else:
 
-            if position is not None or position != 0 : return False
+                     return False        
+            
+
             else:
-                 self.head.next=newnode
-                 return True
-                 
-
+                self.head.next=newnode
+                return True
         else:
-
-            if position is not None or position != 0 :
+            if position is not None:
+                
                 cur_node=self.getNode(position)
                 prev_node=self.getNode(position-1)
                 newnode.next=cur_node
@@ -29,32 +33,34 @@ class SingleLinkedList:
                 
                 return True
 
-            elif position == 0 :
-                newnode.next=self.head.next
-                self.head=newnode
-                return True
-
+           
             else :
                 cur_node= self.getLastNode()
                 cur_node.next=newnode
                 return True
 
-    def delete(self, data=None, position=None):
+    def delete(self, position=None , data=None):
+        
         if self.listlen()==0:
+            
             return False
         
         else:
-
+           
             if not data and not position :
-                return ('you should enter the element or the position of the node')
+               
+                return False
+
         
             elif not data and position :
+                
                 if position< 0 or position >= self.listlen():
                     return False
                 else:
+                    
                     cur_node=self.getNode(position)
                     prev_node=self.getNode(position-1)
-                    prev_node.next=cur_node,next
+                    prev_node.next=cur_node.next
                     cur_node.next=None
                     return True
             
@@ -64,7 +70,7 @@ class SingleLinkedList:
                 elif self.find(data):
                     cur_node= self.getNode(self.search(data))
                     prev_node= self.getNode( (self.search(data))-1 )
-                    prev_node.next=cur_node,next
+                    prev_node.next=cur_node.next
                     cur_node.next=None
                     return True
 
@@ -76,7 +82,7 @@ class SingleLinkedList:
                     if position== self.search(data) :
                         cur_node=self.getNode(position)
                         prev_node=self.getNode(position-1)
-                        prev_node.next=cur_node,next
+                        prev_node.next=cur_node.next
                         cur_node.next=None
                         return True
                     else:
@@ -101,11 +107,15 @@ class SingleLinkedList:
     def getNode(self ,position):
         indx=-1
         curnode=self.head
+        
         if position < -1 or position >= self.listlen():
+            
             return False
         else :
+            
             while True:
                 if indx == position:
+                   
                     return curnode
                 curnode = curnode.next
                 indx += 1 
@@ -135,7 +145,7 @@ class SingleLinkedList:
         len = 0
         while cur.next is not None:
             cur=cur.next 
-            len=+1   
+            len+=1   
         return len
 
     def printNodes(self):
@@ -143,7 +153,7 @@ class SingleLinkedList:
         elements=[]
         while cur.next is not None:
             cur=cur.next 
-            elements.append(cur.date)   
+            elements.append(cur.data)   
         print(elements)
     
     def merge(self, AnotherList, position = None):
@@ -172,6 +182,10 @@ class SingleLinkedList:
             return False
 
     def sort(self):
+        if self.head is None or self.head.next is None :
+            return False
+
+
 
         pass  
 
@@ -179,6 +193,21 @@ class SingleLinkedList:
 #add [] feature
 #add printability feature 
 #add + feature aginst other lists 
+L=SingleLinkedList()
+f=SingleLinkedList()
+
+
+L.insert(1)
+L.insert(2)
+L.insert(3)
+L.insert(4)
+f.insert(5)
+L.merge(f)
+
+L.printNodes()
+print(L.listlen())
+
+
      
 
 
