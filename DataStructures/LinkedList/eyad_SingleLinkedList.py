@@ -1,7 +1,12 @@
+
+
+
 class node:
     def __init__(self,data=None):
         self.data=data
         self.next=None
+
+
 class SingleLinkedList:
     def __init__(self):
         self.head= node()   
@@ -209,6 +214,5 @@ print(L.listlen())
 
 
      
-
 
 
