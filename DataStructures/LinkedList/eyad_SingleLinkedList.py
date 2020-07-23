@@ -66,7 +66,7 @@ class SingleLinkedList:
                     cur_node=self.getNode(position)
                     prev_node=self.getNode(position-1)
                     prev_node.next=cur_node.next
-                    cur_node.next=None
+                     
                     return True
             
             elif data and not position :
@@ -76,7 +76,7 @@ class SingleLinkedList:
                     cur_node= self.getNode(self.search(data))
                     prev_node= self.getNode( (self.search(data))-1 )
                     prev_node.next=cur_node.next
-                    cur_node.next=None
+                    
                     return True
 
             elif  data and position:
@@ -88,7 +88,7 @@ class SingleLinkedList:
                         cur_node=self.getNode(position)
                         prev_node=self.getNode(position-1)
                         prev_node.next=cur_node.next
-                        cur_node.next=None
+                         
                         return True
                     else:
                         return False
@@ -185,14 +185,20 @@ class SingleLinkedList:
 
         else:
             return False
+    
 
-    def sort(self):
-        if self.head is None or self.head.next is None :
-            return False
+    def sortlist(self):
+        cur=self.head
+        e=[]
+        while cur.next is not None:
+            cur=cur.next
+            e.append(cur.data)
+            self.delete(None,cur.data)
+        e.sort()
+        for i in e:
+            self.insert(i)
 
-
-
-        pass  
+        
 
    
 #add [] feature
@@ -202,15 +208,18 @@ L=SingleLinkedList()
 f=SingleLinkedList()
 
 
-L.insert(1)
-L.insert(2)
+L.insert(5)
+L.insert(6)
 L.insert(3)
 L.insert(4)
-f.insert(5)
+f.insert(1)
 L.merge(f)
-
+L.sortlist()
 L.printNodes()
-print(L.listlen())
+
+
+
+
 
 
      
