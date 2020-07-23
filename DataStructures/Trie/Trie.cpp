@@ -37,10 +37,7 @@ public:
         word = word.substr(1);
         Trie *t = found(c);
         if(! t) return false;
-        if(word.empty()){
-            if (end_of_word) return true;
-            else return false;
-        }  
+        if(word.empty()) return end_of_word;
         return tries[c]->search(word);
     }   
 
