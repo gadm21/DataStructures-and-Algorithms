@@ -1,15 +1,34 @@
-
-
-
 class node:
     def __init__(self,data=None):
         self.data=data
         self.next=None
-
-
 class SingleLinkedList:
     def __init__(self):
         self.head= node()   
+
+    def __str__(self):
+        cur=self.head
+        elements=[]
+        while cur.next is not None:
+            cur=cur.next 
+            elements.append(cur.data) 
+     
+        str1 = ""  
+        for ele in elements:
+            ele=str(ele)  
+            str1 += ele     
+        return str1        
+
+    def __add__(self, AnotherList):
+        lastnode_list1=self.getLastNode()
+        lastnode_list1.next=AnotherList.head.next
+        cur=self.head
+        elements=[]
+        while cur.next is not None:
+            cur=cur.next 
+            elements.append(cur.data)   
+        return elements
+        
 
     def insert(self, data, position = None): 
         newnode=node(data)
@@ -162,6 +181,7 @@ class SingleLinkedList:
         print(elements)
     
     def merge(self, AnotherList, position = None):
+                
         if  AnotherList and self :
             if AnotherList.listlen()==0 or self.listlen()==0 :
                 return False
@@ -185,17 +205,15 @@ class SingleLinkedList:
 
         else:
             return False
-    
-
     def sortlist(self):
         cur=self.head
-        e=[]
+        a=[]
         while cur.next is not None:
             cur=cur.next
-            e.append(cur.data)
+            a.append(cur.data)
             self.delete(None,cur.data)
-        e.sort()
-        for i in e:
+        a=list(map(int,filter(lambda x:x.isdigit(),sorted(map(str,a)))))+list(filter(lambda x:x.isalpha(),sorted(map(str,a))))
+        for i in a:
             self.insert(i)
 
         
@@ -206,16 +224,14 @@ class SingleLinkedList:
 #add + feature aginst other lists 
 L=SingleLinkedList()
 f=SingleLinkedList()
-
-
-L.insert(5)
-L.insert(6)
+L.insert(1)
 L.insert(3)
 L.insert(4)
-f.insert(1)
-L.merge(f)
-L.sortlist()
-L.printNodes()
+L.insert(5)
+f.insert(32)
+
+
+print(L+f)
 
 
 
