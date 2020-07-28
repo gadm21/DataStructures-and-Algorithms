@@ -222,14 +222,38 @@ class SingleLinkedList:
             self.insert(i)
 
         
+L1 = SingleLinkedList()
+L2 = SingleLinkedList()
 
-   
-#add [] feature
-#add printability feature 
-#add + feature aginst other lists 
+L1.insert(1) 
+L1.insert(3,1) 
+L1.insert(0,0)
+L1.insert(2,1)
+#L1 should be [0,1,2,3]
+
+L2.insert(10) 
+L2.insert(L1.getLastNode()) 
+L2.insert(L2.listlen(), 0) 
+#L2 should be [2,10,3] 
+
+print(L1)  #should print [0,1,2,3]
+L2.sortlist()
+print(L2)  #should print [2,3,10]
+
+
+L3 = L1 + L2 
+#L3 should be [0,1,2,3,2,3,10] 
+
+print(L3) #should print  [0,1,2,3,2,3,10] 
 
 
 
+
+
+#sortlist() should return a sorted linkedList. DONOT change the current state of nodes
+#add other functions to the test (like delete() and find()) and fix bugs until you pass all tests
+#add binary_search() 
+#remove merge() and allow insert() to accept number, list, or linkedList
 
 
      
