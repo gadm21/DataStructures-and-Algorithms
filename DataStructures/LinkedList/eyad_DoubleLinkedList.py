@@ -2,6 +2,8 @@ class node:
     def __init__(self,data=None):
         self.data=data
         self.next=None
+        self.prev=None 
+        
 class SingleLinkedList:
     def __init__(self):
         self.head= node()   
@@ -18,10 +20,6 @@ class SingleLinkedList:
             ele=str(ele)  
             str1 += ele     
         return str1        
-
-    def __getitem__(self,position):
-        node=self.getNode(position)
-        return node.data
 
     def __add__(self, AnotherList):
         lastnode_list1=self.getLastNode()
@@ -209,7 +207,6 @@ class SingleLinkedList:
 
         else:
             return False
-   
     def sortlist(self):
         cur=self.head
         a=[]
@@ -227,6 +224,17 @@ class SingleLinkedList:
 #add [] feature
 #add printability feature 
 #add + feature aginst other lists 
+L=SingleLinkedList()
+f=SingleLinkedList()
+L.insert(1)
+L.insert(3)
+L.insert(4)
+L.insert(5)
+f.insert(32)
+
+
+print(L+f)
+
 
 
 
