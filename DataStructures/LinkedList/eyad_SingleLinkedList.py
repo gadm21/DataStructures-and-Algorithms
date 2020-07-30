@@ -136,7 +136,7 @@ class SingleLinkedList:
         indx=-1
         curnode=self.head
         
-        if position < -1 or position >= self.listlen():
+        if position < -1 or position > self.listlen():
             
             return False
         else :
