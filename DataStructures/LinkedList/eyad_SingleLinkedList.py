@@ -224,46 +224,45 @@ class SingleLinkedList:
 
         return self    
 
+    def binarySearch(self,value):
 
-    def middle(start, last): 
+       start = self.head
+       last = None
+       while True :  
+           mid = self.middle(start, last) 
+           if (mid == None):  
+               return None
+    
+           if (mid . data == value): 
+                return mid 
+    
+           elif (mid . data < value): 
+                start = mid . next
+    
+           else: 
+                last = mid 
+           if not (last == None or last != start): 
+                 break
+       return None   
+        
+
+    def middle(self,start, last): 
   
          if (start == None): 
             return None
 
-        mid = start 
-        mid2 = start . next
+         mid = start
+         mid2 = start . next
     
-        while (mid2 != last): 
+         while (mid2 != last): 
         
             mid2 = mid2 . next
-            if (fast != last): 
+            if (mid2 != last): 
             
                 mid = mid . next
                 mid2 = mid2. next
             
-        return mid
-
-   def binarySearch(self,value): 
-  
-    start = self.head 
-    last = None
-    while True : 
-        mid = middle(start, last) 
-        if (mid == None): 
-            return None
-   
-        if (mid . data == value): 
-            return mid 
-  
-        elif (mid . data < value): 
-            start = mid . next
-  
-        else: 
-            last = mid 
-        if not (last == None or last != start): 
-            break
-    return None   
-    
+         return mid
 
 
 L1 = SingleLinkedList()
@@ -274,6 +273,8 @@ L1.insert(3,1)
 L1.insert(0,0)
 L1.insert(2,1)
 #L1 should be [0,1,2,3]
+L1.binarySearch(3)
+
 
 L2.insert(10) 
 L2.insert((L1.getLastNode()).data) 
