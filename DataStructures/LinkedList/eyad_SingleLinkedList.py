@@ -35,38 +35,42 @@ class SingleLinkedList:
     
     
 
-    def insert(self, data, position = None): 
+    def insert(self, data=None,AnotherList=None ,position = None): 
         newnode=node(data)
-        
+        if data and not AnotherList:
+            if self.listlen() ==0:
+                if position is not None :
+                    if position ==0:
+                        self.head.next=newnode
+                        return True
+                    else:
+                        return False        
+                
 
-        if self.listlen() ==0:
-            if position is not None :
-                if position ==0:
+                else:
                     self.head.next=newnode
                     return True
-                else:
-
-                     return False        
-            
-
             else:
-                self.head.next=newnode
-                return True
-        else:
-            if position is not None:
-                
-                cur_node=self.getNode(position)
-                prev_node=self.getNode(position-1)
-                newnode.next=cur_node
-                prev_node.next=newnode
-                
-                return True
+                if position is not None:
+                    
+                    cur_node=self.getNode(position)
+                    prev_node=self.getNode(position-1)
+                    newnode.next=cur_node
+                    prev_node.next=newnode
+                    
+                    return True
 
-           
-            else :
-                cur_node= self.getLastNode()
-                cur_node.next=newnode
-                return True
+            
+                else :
+                    cur_node= self.getLastNode()
+                    cur_node.next=newnode
+                    return True
+        elif data is not None and AnotherList is not None:
+            return False
+        elif not data and  AnotherList and not position:
+            return self.merge(AnotherList)
+        elif not data and AnotherList and position:
+            return self.merge(AnotherList, position)
 
     def delete(self, position=None , data=None):
         
@@ -245,7 +249,6 @@ class SingleLinkedList:
                  break
        return None   
         
-
     def middle(self,start, last): 
   
          if (start == None): 
@@ -268,28 +271,23 @@ class SingleLinkedList:
 L1 = SingleLinkedList()
 L2 = SingleLinkedList()
 
-L1.insert(1) 
-L1.insert(3,1) 
-L1.insert(0,0)
-L1.insert(2,1)
+L1.insert(1,None) 
+L1.insert(3,None,1) 
+L1.insert(0,None,0)
+L1.insert(2,None,1)
 #L1 should be [0,1,2,3]
-L1.binarySearch(3)
-
-
 L2.insert(10) 
 L2.insert((L1.getLastNode()).data) 
-L2.insert(L2.listlen(), 0) 
+L2.insert(L2.listlen(),None, 0) 
 #L2 should be [2,10,3] 
+print(L1)
+print(L2)
 
-print(L1)  #should print [0,1,2,3]
-print(L2.sortlist())
-print(L2)  #should print [2,3,10]
+L1.insert(None,L2)
 
-
-L3 = L1 + L2 
 # #L3 should be [0,1,2,3,2,3,10] 
 
-print(L3) #should print  [0,1,2,3,2,3,10] 
+print(L1) #should print  [0,1,2,3,2,3,10] 
 
 
 
