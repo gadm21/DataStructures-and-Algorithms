@@ -35,9 +35,11 @@ class SingleLinkedList:
     
     
 
-    def insert(self, data=None,AnotherList=None ,position = None): 
-        newnode=node(data)
-        if data and not AnotherList:
+    def insert(self, data, position = None): 
+        print(type(data))
+        if data is int or data is str:
+            print(222)
+            newnode=node(data)
             if self.listlen() ==0:
                 if position is not None :
                     if position ==0:
@@ -65,15 +67,17 @@ class SingleLinkedList:
                     cur_node= self.getLastNode()
                     cur_node.next=newnode
                     return True
-        elif data is not None and AnotherList is not None:
-            return False
-        elif not data and  AnotherList and not position:
-            return self.merge(AnotherList)
-        elif not data and AnotherList and position:
-            return self.merge(AnotherList, position)
+
+        elif data is SingleLinkedList and  not position:
+            return self.merge(data)
+        elif data is SingleLinkedList and  position:
+            return self.merge(data, position)
+        elif data is list and not position:
+            return self.merge(self.List2Linkedlist(data))
+        elif data is list and position:
+            return self.merge((self.List2Linkedlist(data)),position)
 
     def delete(self, position=None , data=None):
-        
         if self.listlen()==0:
             
             return False
@@ -227,6 +231,12 @@ class SingleLinkedList:
             self.insert(i)
 
         return self    
+     
+    def List2Linkedlist(self,listt):
+        for i in listt:
+            self.insert(i)
+        
+        return self
 
     def binarySearch(self,value):
 
@@ -271,19 +281,16 @@ class SingleLinkedList:
 L1 = SingleLinkedList()
 L2 = SingleLinkedList()
 
-L1.insert(1,None) 
-L1.insert(3,None,1) 
-L1.insert(0,None,0)
-L1.insert(2,None,1)
-#L1 should be [0,1,2,3]
-L2.insert(10) 
-L2.insert((L1.getLastNode()).data) 
-L2.insert(L2.listlen(),None, 0) 
-#L2 should be [2,10,3] 
-print(L1)
-print(L2)
+L1.insert(1) 
+L1.insert(3,1) 
+L1.insert(0,0)
+L1.insert(2,1)
+# #L1 should be [0,1,2,3]
+# L2.insert(10) 
+# L2.insert((L1.getLastNode()).data) 
+# L2.insert(L2.listlen(), 0) 
+# #L2 should be [2,10,3] 
 
-L1.insert(None,L2)
 
 # #L3 should be [0,1,2,3,2,3,10] 
 
