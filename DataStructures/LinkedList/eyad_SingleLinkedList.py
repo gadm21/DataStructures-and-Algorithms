@@ -36,9 +36,8 @@ class SingleLinkedList:
     
 
     def insert(self, data, position = None): 
-        print(type(data))
-        if data is int or data is str:
-            print(222)
+      
+        if type(data) is int or type(data) is str:
             newnode=node(data)
             if self.listlen() ==0:
                 if position is not None :
@@ -68,15 +67,13 @@ class SingleLinkedList:
                     cur_node.next=newnode
                     return True
 
-        elif data is SingleLinkedList and  not position:
+        elif type(data) is SingleLinkedList and  not position:
             return self.merge(data)
-        elif data is SingleLinkedList and  position:
+        elif type(data) is SingleLinkedList and  position:
             return self.merge(data, position)
-        elif data is list and not position:
-            return self.merge(self.List2Linkedlist(data))
-        elif data is list and position:
-            return self.merge((self.List2Linkedlist(data)),position)
-
+        elif type(data) is list :
+            L=SingleLinkedList()
+            return self.merge((L.List2Linkedlist(data)),position)
     def delete(self, position=None , data=None):
         if self.listlen()==0:
             
@@ -127,7 +124,6 @@ class SingleLinkedList:
             
             else:
                 return False                
-
     def find(self, data):
         if self.listlen()==0:
             return False
@@ -140,7 +136,6 @@ class SingleLinkedList:
                     return True
                 
             return False 
-   
     def getNode(self ,position):
         indx=-1
         curnode=self.head
@@ -156,14 +151,12 @@ class SingleLinkedList:
                     return curnode
                 curnode = curnode.next
                 indx += 1 
-    
     def getLastNode(self):
         cur=self.head
         while cur.next is not None:
             cur=cur.next 
                
-        return cur
-       
+        return cur   
     def search(self, data):
         if self.listlen()==0:
             return False
@@ -175,8 +168,7 @@ class SingleLinkedList:
                     return curindx
                 curnode=curnode.next
                 curindx+=1
-            return False
-         
+            return False    
     def listlen(self):
         cur=self.head
         len = 0
@@ -184,6 +176,13 @@ class SingleLinkedList:
             cur=cur.next 
             len+=1   
         return len
+    
+    def deleteNodes(self):
+        cur=self.head
+        while cur.next is not None:
+            cur=cur.next 
+            self.delete(cur.data)   
+        return self
 
     def printNodes(self):
         cur=self.head
@@ -194,31 +193,42 @@ class SingleLinkedList:
         print(elements)
     
     def merge(self, AnotherList, position = None):
-                
+        AnotherList=AnotherList.Linkedlist2List()
+        
         if  AnotherList and self :
-            if AnotherList.listlen()==0 or self.listlen()==0 :
-                return False
+            if  self.listlen()==0 :
 
-            elif  position :
+                self.List2Linkedlist(AnotherList)
+                return self
+
+            elif  position or position==0:
+                
                 if position >= self.listlen() or position <0 :
                     return False
 
                 else:
-                  
-                    cur_node=self.getNode(position)
-                    prev_node=self.getNode(position)
-                    lastnode_list2= AnotherList.getLastNode()
-                    lastnode_list2.next= cur_node
-                    prev_node.next =AnotherList.head.next
-                    return True
+                    for i in AnotherList:
+                        self.insert(i,position)
+                        position+=1
+                    return self
 
-            elif not position:
-                lastnode_list1=self.getLastNode()
-                lastnode_list1.next=AnotherList.head.next
+            elif not position or position!=0:
+            
+                self.List2Linkedlist(AnotherList)
+                
+                return self
 
         else:
             return False
    
+    def copylist(self):
+        cur=self.head
+        l=SingleLinkedList()
+        while cur.next is not None:
+            cur=cur.next
+            l.insert(cur.data)
+        return l       
+
     def sortlist(self):
         cur=self.head
         a=[]
@@ -237,6 +247,13 @@ class SingleLinkedList:
             self.insert(i)
         
         return self
+    def Linkedlist2List(self):
+        cur=self.head
+        elements=[]
+        while cur.next is not None:
+            cur=cur.next 
+            elements.append(cur.data)   
+        return(elements)
 
     def binarySearch(self,value):
 
@@ -257,8 +274,7 @@ class SingleLinkedList:
                 last = mid 
            if not (last == None or last != start): 
                  break
-       return None   
-        
+       return None          
     def middle(self,start, last): 
   
          if (start == None): 
@@ -280,30 +296,20 @@ class SingleLinkedList:
 
 L1 = SingleLinkedList()
 L2 = SingleLinkedList()
+L3 = SingleLinkedList()
+L2.insert(1)
+L2.insert(2)
+ 
+L1.insert(0)
 
-L1.insert(1) 
-L1.insert(3,1) 
-L1.insert(0,0)
-L1.insert(2,1)
-# #L1 should be [0,1,2,3]
-# L2.insert(10) 
-# L2.insert((L1.getLastNode()).data) 
-# L2.insert(L2.listlen(), 0) 
-# #L2 should be [2,10,3] 
+L1.insert([1,2,3])
 
+L1.insert(L2)
 
-# #L3 should be [0,1,2,3,2,3,10] 
+L1.insert(20,1) 
 
-print(L1) #should print  [0,1,2,3,2,3,10] 
-
-
-
-#sortlist() should return a sorted linkedList. DONOT change the current state of nodes
-#add other functions to the test (like delete() and find()) and fix bugs until you pass all tests
-#add binary_search() 
-#remove merge() and allow insert() to accept number, list, or linkedList
-
-
-     
+L2.insert([4,5,9],0)
+print("L1:",L1)
+print("L2:",L2)
 
 
