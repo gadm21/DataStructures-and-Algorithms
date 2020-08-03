@@ -72,6 +72,8 @@ class SingleLinkedList:
         elif not data and AnotherList and position:
             return self.merge(AnotherList, position)
 
+
+
     def delete(self, position=None , data=None):
         
         if self.listlen()==0:
