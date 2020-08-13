@@ -28,6 +28,8 @@ class Node{
         Node<K, V> * get_left_node();
         Node<K, V> * get_right_node();
         Node<K, V> * get_parent();
+
+        bool isLeaf();
 };
 
 
@@ -40,7 +42,8 @@ class BinarySearchTree{
         void internal_traverse(Node<K,V> * n);
     public:
         BinarySearchTree();
-        void insert( K key, V value);
+        Node<K,V> * get_root();
+        void insert( K key, V value=0);
         bool remove( K key);
         void print();
 };

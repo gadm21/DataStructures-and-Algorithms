@@ -58,6 +58,9 @@ template <class K, class V>
 void Node<K, V>::set_parent(Node<K, V> * n){ parent= n;}
 
 
+template<class K, class V>
+bool Node<K,V>::isLeaf(){return left_node==nullptr && right_node==nullptr;}
+
 
 
 
@@ -86,7 +89,7 @@ BinarySearchTree<K, V>::BinarySearchTree(){ root= nullptr;}
 
 
 template <class K, class V>
-void BinarySearchTree<K,V>::insert(K key, V value){
+void BinarySearchTree<K,V>::insert(K key, V value ){
     if(!root){
         root= new Node<K,V> (key, value);
         return;
@@ -170,15 +173,6 @@ void BinarySearchTree<K,V>::print(){
     internal_traverse(root);
 }
 
-int main(){
-    BinarySearchTree<int, int> b;
-    b.insert(33, 12);
-    b.insert(33, 3);
-    b.insert(33, 4);
-    b.insert(33, 40);
-    b.remove(33);
-    b.remove(3);
-    b.remove(33);
-    b.insert(300, 4);
-    b.print();
-}
+template<class K, class V>
+Node<K,V> * BinarySearchTree<K,V>::get_root(){return root;}
+
